@@ -23,15 +23,16 @@ public class CareersServiesImpl implements CareersServies {
 	@Override
 	public Careers saveCareers(Careers careers) {
 		careers.getActivities().stream().forEach(a -> a.setCareers(careers));
-		return careersRespository.save(careers);
+		Careers savedcareer=careersRespository.save(careers);
+		return savedcareer ;
 	}
 	@Override
 	public void updateCareers(Careers careers) {
 		careersRespository.save(careers);
-
+		
 	}
 	@Override
-	public void deleteCareers(Integer careersId) {
+	public void deleteCareers(Long careersId) {
 
 		careersRespository.deleteById(careersId);
 	}
@@ -42,7 +43,7 @@ public class CareersServiesImpl implements CareersServies {
 	}
 
 	@Override
-	public Optional<Careers> findById(Integer careersId) {
+	public Optional<Careers> findById(Long careersId) {
 		return careersRespository.findById(careersId);
 	}
 

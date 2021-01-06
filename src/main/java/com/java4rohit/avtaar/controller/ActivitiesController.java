@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.java4rohit.avtaar.entities.Activities;
 import com.java4rohit.avtaar.services.ActivitiesServices;
+
 /**
  * 
- * @author java4rohit
- * The controller of application,ActivitiesController,define the Rest API endpoint.
- * The code of activitiesController is this.
- * this is activitiesController  which content Activities related endpoint..
+ * @author java4rohit The controller of application,ActivitiesController,define
+ *         the Rest API endpoint. The code of activitiesController is this. this
+ *         is activitiesController which content Activities related endpoint..
  *
  */
 
@@ -35,43 +35,45 @@ public class ActivitiesController {
 	ActivitiesServices activitiesServices;
 
 	@GetMapping(value = "/getActivity/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Activities>  findById(@PathVariable("id") Long activitiesId) {
+	public ResponseEntity<Activities> findById(@PathVariable("id") Long activitiesId) {
 		Optional<Activities> activitiesOPt = activitiesServices.findById(activitiesId);
-		return  new ResponseEntity<Activities>(activitiesOPt.isPresent()?activitiesOPt.get():null, activitiesOPt.isPresent()?HttpStatus.OK:HttpStatus.NO_CONTENT) ;
+		return new ResponseEntity<Activities>(activitiesOPt.isPresent() ? activitiesOPt.get() : null,
+				activitiesOPt.isPresent() ? HttpStatus.OK : HttpStatus.NO_CONTENT);
 
 	}
-	
+
 	@GetMapping(value = "/getActivities/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String  getActivities(@PathVariable("name") String activityName) {
+	public ResponseEntity<Activities> getActivities(@PathVariable("name") String activityName) {
 		Activities activity = activitiesServices.findByActivitiesName(activityName);
-//		System.out.println(activity.getActivitiesName());
-		return activity.getActivitiesName();
+		return new ResponseEntity<>(activity, HttpStatus.OK);
 
 	}
-	
+
 	@GetMapping(value = "/getActivities", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Activities>>  getActivities() {
+	public ResponseEntity<List<Activities>> getActivities() {
 		List<Activities> list = activitiesServices.getActivities();
 		return new ResponseEntity<List<Activities>>(list, list.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
 
 	}
-	
+
 	@PostMapping(value = "/saveActivities")
 	public ResponseEntity<Activities> saveActivities(@Validated @RequestBody Activities activities) {
 		Activities responseActivities = activitiesServices.saveActivities(activities);
 		return new ResponseEntity<Activities>(responseActivities, HttpStatus.CREATED);
 	}
+
 	@PutMapping(value = "/updateActivities")
 	public ResponseEntity<Void> updateActivities(@RequestBody Activities activities) {
 		activitiesServices.updateActivities(activities);
 		return new ResponseEntity<>(HttpStatus.OK);
 
 	}
+
 	@DeleteMapping(value = "/deleteActivity/{id}")
 	public ResponseEntity<Void> deleteActivities(@PathVariable("id") Long ActivitiesId) {
 		activitiesServices.deleteActivities(ActivitiesId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 }

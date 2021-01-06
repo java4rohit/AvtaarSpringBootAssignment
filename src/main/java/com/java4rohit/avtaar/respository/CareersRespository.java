@@ -9,10 +9,10 @@ import com.java4rohit.avtaar.entities.Careers;
 
 
 @Repository
-public interface CareersRespository  extends CrudRepository<Careers, Integer>{
+public interface CareersRespository  extends CrudRepository<Careers, Long>{
 
 	public Careers findByCareersName(String name);
 	
-	public Optional<Careers> findById(Integer id); // Select Name from Careers where id = 'id';
+	public Optional<Careers> findById(Long id); // Select Name from Careers where id = 'id';
 	
 }

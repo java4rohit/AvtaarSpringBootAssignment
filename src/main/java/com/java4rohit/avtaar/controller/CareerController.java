@@ -32,7 +32,7 @@ public class CareerController {
 	CareersServies careersServies;
 
 	@GetMapping(value = "/getCareers/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Careers> findById(@PathVariable("id") int careersId) {
+	public ResponseEntity<Careers> findById(@PathVariable("id") Long careersId) {
 		Optional<Careers> careersOPt = careersServies.findById(careersId);
 		return new ResponseEntity<Careers>(careersOPt.isPresent() ? careersOPt.get() : null,
 				careersOPt.isPresent() ? HttpStatus.OK : HttpStatus.NO_CONTENT);
@@ -43,9 +43,8 @@ public class CareerController {
 	public ResponseEntity<List<Careers>> getCareers() {
 		List<Careers> list = careersServies.getCareers();
 		return new ResponseEntity<List<Careers>>(list, list.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
-
 	}
-	@PostMapping(value = "/saveCareers")
+	@PostMapping(value = "/saveCareers", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Careers> saveCareers(@Validated @RequestBody Careers careers) {
 
 		Careers reponseCareers = careersServies.saveCareers(careers);
@@ -59,7 +58,7 @@ public class CareerController {
 
 	}
 	@DeleteMapping(value = "/deleteCareers/{id}")
-	public ResponseEntity<Void> deleteCareer(@PathVariable("id") int CareerId) {
+	public ResponseEntity<Void> deleteCareer(@PathVariable("id") Long CareerId) {
 		careersServies.deleteCareers(CareerId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

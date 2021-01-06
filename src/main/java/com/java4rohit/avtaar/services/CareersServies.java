@@ -15,11 +15,11 @@ public interface CareersServies {
 
 	public void updateCareers(Careers careers);
 
-	public void deleteCareers(Integer careersId);
+	public void deleteCareers(Long careersId);
 	
 	public Careers findByCareersName(String name);
 
-	public Optional<Careers> findById(Integer careersId);
+	public Optional<Careers> findById(Long careersId);
 
 
 

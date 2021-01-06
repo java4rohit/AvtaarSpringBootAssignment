@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 /**
  * 
  * @author java4rohit
@@ -25,6 +27,7 @@ public class Activities extends GenericEntities {
 	private String activitiesName;
 	private String activitiesDescription;
 	
+   @JsonBackReference
    @ManyToOne()
    @JoinColumn(name = "career_id",nullable = false)
    private Careers careers;
